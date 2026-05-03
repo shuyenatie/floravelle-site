@@ -1,0 +1,9 @@
+node_modules/
+.edge-profile-desktop/
+.edge-profile-mobile/
+.edge-profile-mobile-v2/
+qa-screenshots/
+outputs/
+docx-render/
+.DS_Store
+Thumbs.db
