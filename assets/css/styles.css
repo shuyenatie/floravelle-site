@@ -261,6 +261,8 @@ img {
     radial-gradient(ellipse 380px 260px at 83% 43%, rgba(255, 255, 255, 0.76) 0 4%, transparent 5% 100%),
     radial-gradient(ellipse 200px 200px at 70% 52%, rgba(255, 255, 255, 0.4) 0 2%, transparent 3% 100%),
     linear-gradient(135deg, #d8d1c4 0%, #f4efe6 36%, #bfc8b5 37%, #ede8dd 62%, #353931 63%, #1f211e 100%);
+  background-size: cover;
+  background-position: center;
 }
 
 .hero::after {
@@ -279,6 +281,20 @@ img {
     linear-gradient(90deg, rgba(32, 32, 29, 0.56), rgba(32, 32, 29, 0.18)),
     radial-gradient(ellipse 500px 300px at 78% 38%, rgba(255, 255, 255, 0.7) 0 4%, transparent 5% 100%),
     linear-gradient(135deg, #d7d9ce, #f4efe5 48%, #3d4436);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero.has-image {
+  background-image:
+    linear-gradient(90deg, rgba(24, 24, 22, 0.6), rgba(24, 24, 22, 0.18) 42%, rgba(24, 24, 22, 0.08)),
+    var(--hero-image);
+}
+
+.hero.narrow.has-image {
+  background-image:
+    linear-gradient(90deg, rgba(24, 24, 22, 0.62), rgba(24, 24, 22, 0.22) 48%, rgba(24, 24, 22, 0.12)),
+    var(--hero-image);
 }
 
 .hero-content {
@@ -364,6 +380,7 @@ img {
   margin-bottom: 14px;
   border-radius: 50%;
   overflow: hidden;
+  border: 1px solid rgba(32, 32, 29, 0.08);
   transition: transform var(--duration) var(--ease-out), box-shadow var(--duration) var(--ease-out);
   background:
     radial-gradient(circle at 48% 38%, #fffdf9 0 14%, transparent 15%),
@@ -407,11 +424,23 @@ a:hover .category-name {
   min-height: 280px;
   transition: transform var(--duration-slow) var(--ease-out), box-shadow var(--duration) var(--ease-out);
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
   background:
     radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.94) 0 13%, transparent 14% 100%),
     radial-gradient(circle at 48% 46%, rgba(122, 139, 111, 0.22) 0 5%, transparent 6% 100%),
     radial-gradient(circle at 55% 60%, rgba(139, 74, 74, 0.06) 0 4%, transparent 5% 100%),
     linear-gradient(145deg, #efede8, #d8ddd1);
+}
+
+.category-image.has-image,
+.product-image.has-image,
+.story-image.has-image,
+.detail-image.has-image {
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow-sm);
 }
 
 .product-card:hover .product-image {
@@ -496,6 +525,166 @@ a:hover .category-name {
   grid-template-columns: 0.95fr 1.05fr;
   gap: 60px;
   align-items: center;
+}
+
+.surface-panel {
+  background: #fbf8f2;
+  border: 1px solid rgba(32, 32, 29, 0.08);
+  box-shadow: var(--shadow-sm);
+}
+
+.padded {
+  padding: 34px;
+}
+
+.surface-panel.padded {
+  padding: 34px;
+}
+
+.surface-panel.soft {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(247, 245, 241, 0.92));
+}
+
+.collection-showcase,
+.detail-band,
+.contact-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.collection-copy,
+.detail-copy {
+  padding: 36px;
+}
+
+.collection-showcase + .collection-showcase {
+  margin-top: 32px;
+}
+
+.eyebrow-row,
+.pill-list,
+.meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.eyebrow-row {
+  margin: 18px 0 22px;
+}
+
+.pill,
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(32, 32, 29, 0.1);
+  background: rgba(255, 253, 249, 0.94);
+  color: var(--charcoal);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.meta-pill {
+  background: rgba(57, 67, 51, 0.06);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.metric-card {
+  padding: 20px 18px;
+  border: 1px solid rgba(32, 32, 29, 0.08);
+  background: rgba(255, 253, 249, 0.72);
+}
+
+.metric-card strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.media-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.media-stack.two-up {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.media-tile {
+  min-height: 220px;
+}
+
+.media-tile.tall {
+  min-height: 320px;
+}
+
+.detail-image.square,
+.media-tile.square {
+  aspect-ratio: 1;
+  min-height: unset;
+}
+
+.quote-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.quote-item {
+  padding: 18px 20px;
+  border-left: 2px solid rgba(57, 67, 51, 0.22);
+  background: rgba(255, 253, 249, 0.68);
+}
+
+.quote-item strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section-divider {
+  margin: 36px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.contact-card-grid,
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 28px;
+}
+
+.contact-card,
+.trust-card {
+  padding: 22px 20px;
+  border: 1px solid rgba(32, 32, 29, 0.08);
+  background: rgba(255, 253, 249, 0.74);
+}
+
+.contact-card h3,
+.trust-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.15;
 }
 
 /* ── Capability List ──────────────────── */
@@ -837,6 +1026,12 @@ select {
   pointer-events: none;
 }
 
+.product-image.has-image::after,
+.story-image.has-image::after,
+.detail-image.has-image::after {
+  background: linear-gradient(110deg, transparent 42%, rgba(255,255,255,0.16) 50%, transparent 58%);
+}
+
 /* ── Detail image ─────────────────────── */
 
 .detail-image.product-image.tall {
@@ -870,15 +1065,31 @@ hr {
   .feature-grid,
   .process-grid,
   .stats-grid,
+  .metric-grid,
+  .contact-card-grid,
+  .trust-grid,
   .story-band,
   .split,
+  .collection-showcase,
+  .detail-band,
+  .contact-band,
   .footer-grid {
     grid-template-columns: 1fr;
   }
 
   .story-copy,
+  .collection-copy,
+  .detail-copy,
   .inquiry-panel {
     padding: 42px 28px;
+  }
+
+  .surface-panel.padded {
+    padding: 28px;
+  }
+
+  .padded {
+    padding: 28px;
   }
 
   .product-grid {
@@ -942,6 +1153,7 @@ hr {
 
   .category-grid,
   .product-grid,
+  .media-stack.two-up,
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -953,6 +1165,15 @@ hr {
 
   .story-copy {
     padding: 36px 22px;
+  }
+
+  .collection-copy,
+  .detail-copy {
+    padding: 30px 22px;
+  }
+
+  .padded {
+    padding: 22px;
   }
 
   .inquiry-panel {

@@ -30,7 +30,7 @@
     </header>
 
     <main>
-      <section class="hero narrow">
+      <section class="hero narrow has-image" style="--hero-image:url('assets/images/generated/hero/subpage-hero-refined-botanicals.png');">
         <div class="container hero-content">
           <div class="section-kicker">Wholesale Inquiry</div>
           <h1>Request a Quote</h1>
@@ -39,19 +39,28 @@
       </section>
 
       <section class="section">
-        <div class="container split">
+        <div class="container contact-band">
           <div>
             <div class="section-kicker">Contact</div>
             <h2 class="section-title">Tell us what you want to build</h2>
             <p class="lead">Use this inquiry form for artificial flowers, faux plants, wedding florals, OEM production, private label, samples, and custom packaging.</p>
-            <ul class="capability-list reveal-children">
-              <li><strong>Email</strong><br><span class="small-copy">sales@floravelle.example</span></li>
-              <li><strong>WhatsApp</strong><br><span class="small-copy">Add your WhatsApp number here</span></li>
-              <li><strong>Response time</strong><br><span class="small-copy">Most wholesale inquiries are reviewed within one business day.</span></li>
-            </ul>
+            <div class="contact-card-grid reveal-children">
+              <article class="contact-card">
+                <h3>Email</h3>
+                <p class="small-copy">sales@floravelle.example</p>
+              </article>
+              <article class="contact-card">
+                <h3>WhatsApp</h3>
+                <p class="small-copy">Add your WhatsApp number here</p>
+              </article>
+              <article class="contact-card">
+                <h3>Response Time</h3>
+                <p class="small-copy">Most wholesale inquiries are reviewed within one business day.</p>
+              </article>
+            </div>
           </div>
 
-          <form class="form-grid" data-inquiry-form>
+          <form class="form-grid surface-panel padded soft" data-inquiry-form>
             <label>Name<input type="text" name="name" autocomplete="name" required></label>
             <label>Email<input type="email" name="email" autocomplete="email" required></label>
             <label>WhatsApp<input type="text" name="whatsapp" autocomplete="tel"></label>
