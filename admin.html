@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" class="js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard | Floravelle Botanics</title>
+  <meta name="description" content="Preview operations dashboard for wholesale faux floral inquiries, products, and fake launch data.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/site-data.js" defer></script>
+  <script src="assets/js/admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="admin.html" data-brand>Floravelle Botanics</a>
+      <nav class="admin-nav" aria-label="Admin navigation">
+        <a class="is-active" href="admin.html">Dashboard</a>
+        <a href="admin-inquiries.html">Inquiries</a>
+        <a href="admin-catalog.html">Catalog</a>
+        <a href="index.html">View Site</a>
+      </nav>
+      <div class="admin-mini-card">
+        <span>Preview Mode</span>
+        <strong>Fake data, launch-ready structure</strong>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <div class="section-kicker">Operations Preview</div>
+          <h1>Wholesale Dashboard</h1>
+          <p data-company-summary>Manufacturer-direct faux botanicals for wholesale collections.</p>
+        </div>
+        <a class="btn secondary" href="contact.html">Test Inquiry Flow</a>
+      </header>
+
+      <section class="admin-metric-grid">
+        <article class="admin-metric-card"><span>Total inquiries</span><strong data-metric-total>112</strong><small>Fake 30-day view</small></article>
+        <article class="admin-metric-card"><span>New</span><strong data-metric-new>1</strong><small>Needs reply</small></article>
+        <article class="admin-metric-card"><span>Sample requests</span><strong data-metric-samples>29</strong><small>Sample-led buyers</small></article>
+        <article class="admin-metric-card"><span>Quote requests</span><strong data-metric-quotes>48</strong><small>Ready for pricing</small></article>
+        <article class="admin-metric-card"><span>OEM requests</span><strong data-metric-oem>21</strong><small>Custom projects</small></article>
+        <article class="admin-metric-card"><span>Avg response</span><strong data-metric-response>18h</strong><small>Target under 24h</small></article>
+      </section>
+
+      <section class="admin-grid two">
+        <article class="admin-panel">
+          <div class="admin-panel-head">
+            <div>
+              <div class="section-kicker">7-day trend</div>
+              <h2 class="admin-panel-title">Inquiry activity</h2>
+            </div>
+            <span class="status status-new">Live demo</span>
+          </div>
+          <div class="admin-trend" data-trend aria-label="Fake seven day inquiry trend"></div>
+        </article>
+
+        <article class="admin-panel">
+          <div class="section-kicker">Traffic sources</div>
+          <h2 class="admin-panel-title">Where inquiries come from</h2>
+          <div class="admin-bars" data-source-share></div>
+        </article>
+      </section>
+
+      <section class="admin-grid two">
+        <article class="admin-panel">
+          <div class="section-kicker">Top categories</div>
+          <h2 class="admin-panel-title">Buyer interest</h2>
+          <div class="admin-bars" data-top-categories></div>
+        </article>
+
+        <article class="admin-panel">
+          <div class="section-kicker">Launch checklist</div>
+          <h2 class="admin-panel-title">Replace before going real</h2>
+          <ul class="admin-check-list">
+            <li>Brand name, logo, and company details</li>
+            <li>Real email, WhatsApp, address, and response policy</li>
+            <li>Real product photos, SKU names, MOQ, and packing rules</li>
+            <li>Real form endpoint, database, and admin login</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,9 +1,53 @@
 (function () {
-  var brand = "Floravelle";
+  var data = window.FloravelleData || {};
+  var config = data.siteConfig || {};
+  var brand = config.brandName || "Floravelle";
+
+  function text(selector, value) {
+    if (!value) return;
+    document.querySelectorAll(selector).forEach(function (node) {
+      node.textContent = value;
+    });
+  }
 
   document.querySelectorAll("[data-brand]").forEach(function (node) {
     node.textContent = brand;
   });
+
+  text("[data-company-name]", config.companyName);
+  text("[data-support-email]", config.supportEmail);
+  text("[data-whatsapp]", config.whatsapp);
+  text("[data-response-time]", config.responseTime);
+  text("[data-lead-time]", config.leadTime);
+  text("[data-moq]", config.moq);
+  text("[data-sample-policy]", config.samplePolicy);
+  text("[data-company-summary]", config.companySummary);
+
+  document.querySelectorAll("[data-email-link]").forEach(function (node) {
+    if (config.supportEmail) {
+      node.setAttribute("href", "mailto:" + config.supportEmail + "?subject=Wholesale%20Inquiry");
+    }
+  });
+
+  document.querySelectorAll("[data-admin-count]").forEach(function (node) {
+    var key = node.getAttribute("data-admin-count");
+    if (key === "products") node.textContent = String((data.products || []).length);
+    if (key === "inquiries") node.textContent = String((data.inquiries || []).length);
+  });
+
+  function storedInquiries() {
+    try {
+      return JSON.parse(localStorage.getItem("floravelle-preview-inquiries") || "[]");
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function saveInquiry(inquiry) {
+    var stored = storedInquiries();
+    stored.unshift(inquiry);
+    localStorage.setItem("floravelle-preview-inquiries", JSON.stringify(stored.slice(0, 12)));
+  }
 
   var toggle = document.querySelector("[data-menu-toggle]");
   var nav = document.querySelector("[data-nav-links]");
@@ -20,10 +64,31 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       var status = form.querySelector("[data-form-status]");
+      var formData = new FormData(form);
+      var interest =
+        formData.get("interested-products") ||
+        formData.get("interest") ||
+        "General wholesale collection";
+      saveInquiry({
+        id: "INQ-DEMO-" + new Date().getTime().toString().slice(-6),
+        customerName: formData.get("name") || "Preview Buyer",
+        company: formData.get("company") || "Preview Company",
+        country: formData.get("country") || "Not specified",
+        inquiryType: formData.get("project-type") || "Request Quote",
+        productCategory: String(interest),
+        productId: "Preview",
+        quantity: formData.get("estimated-quantity") || formData.get("quantity") || "Not specified",
+        packagingNeeds: String(formData.get("message") || "To be confirmed"),
+        timeline: "Submitted in preview flow",
+        status: "New",
+        createdAt: new Date().toISOString().slice(0, 10),
+        source: document.title || "Preview form",
+      });
       if (status) {
         status.textContent =
-          "Thanks. This preview site does not send messages yet, but the wholesale inquiry flow is ready for integration.";
+          "Inquiry saved to the preview admin. In production this step will send to email or CRM.";
       }
+      form.reset();
     });
   });
 

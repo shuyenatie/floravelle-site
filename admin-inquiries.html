@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" class="js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inquiry Admin | Floravelle Botanics</title>
+  <meta name="description" content="Preview inquiry list for the Floravelle Botanics wholesale faux floral site.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/site-data.js" defer></script>
+  <script src="assets/js/admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="admin.html" data-brand>Floravelle Botanics</a>
+      <nav class="admin-nav" aria-label="Admin navigation">
+        <a href="admin.html">Dashboard</a>
+        <a class="is-active" href="admin-inquiries.html">Inquiries</a>
+        <a href="admin-catalog.html">Catalog</a>
+        <a href="contact.html">Test Form</a>
+      </nav>
+      <div class="admin-mini-card">
+        <span>Inbox model</span>
+        <strong>Ready for email, CRM, or database integration</strong>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <div class="section-kicker">Wholesale Inbox</div>
+          <h1>Inquiries</h1>
+          <p>Fake buyer records plus any preview form submissions saved in this browser.</p>
+        </div>
+        <a class="btn secondary" href="admin-catalog.html">View Catalog</a>
+      </header>
+
+      <section class="admin-grid inquiry-admin-grid">
+        <article class="admin-panel">
+          <div class="admin-panel-head">
+            <div>
+              <div class="section-kicker">Queue</div>
+              <h2 class="admin-panel-title">Buyer requests</h2>
+            </div>
+            <span class="status status-new">Click a row</span>
+          </div>
+          <div class="admin-list" data-inquiry-list></div>
+        </article>
+
+        <aside class="admin-panel sticky-panel" data-inquiry-detail>
+          <div class="section-kicker">Inquiry Detail</div>
+          <h2 class="admin-panel-title">Select an inquiry</h2>
+          <p class="small-copy">The details panel mirrors the future real admin workflow.</p>
+        </aside>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

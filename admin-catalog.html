@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" class="js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catalog Admin | Floravelle Botanics</title>
+  <meta name="description" content="Preview catalog admin for faux floral product categories and wholesale-ready products.">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="assets/js/site-data.js" defer></script>
+  <script src="assets/js/admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="admin.html" data-brand>Floravelle Botanics</a>
+      <nav class="admin-nav" aria-label="Admin navigation">
+        <a href="admin.html">Dashboard</a>
+        <a href="admin-inquiries.html">Inquiries</a>
+        <a class="is-active" href="admin-catalog.html">Catalog</a>
+        <a href="collections.html">View Collections</a>
+      </nav>
+      <div class="admin-mini-card">
+        <span>Catalog model</span>
+        <strong><span data-admin-count="products">7</span> linked preview products</strong>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div>
+          <div class="section-kicker">Product Operations</div>
+          <h1>Catalog</h1>
+          <p>Categories and products match the front site, so the fake backend does not drift from the fake storefront.</p>
+        </div>
+        <a class="btn secondary" href="collections.html">View Front Catalog</a>
+      </header>
+
+      <section class="admin-panel">
+        <div class="admin-panel-head">
+          <div>
+            <div class="section-kicker">Categories</div>
+            <h2 class="admin-panel-title">Wholesale structure</h2>
+          </div>
+          <span class="status status-replied">Replace with real taxonomy later</span>
+        </div>
+        <div class="admin-category-grid" data-admin-categories></div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="admin-panel-head">
+          <div>
+            <div class="section-kicker">Products</div>
+            <h2 class="admin-panel-title">Featured SKU model</h2>
+          </div>
+          <span class="status status-sampling">Fake SKU set</span>
+        </div>
+        <div class="admin-product-grid" data-admin-products></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -5,6 +5,7 @@ const root = path.resolve(__dirname, "..");
 const screenshotDir = path.join(root, "qa-screenshots");
 const edgePath = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const url = "http://127.0.0.1:4173/index.html?qa=playwright";
+const adminUrl = "http://127.0.0.1:4173/admin.html?qa=playwright";
 
 (async () => {
   const browser = await chromium.launch({
@@ -29,6 +30,23 @@ const url = "http://127.0.0.1:4173/index.html?qa=playwright";
     fullPage: false,
   });
 
+  const adminDesktop = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  await adminDesktop.goto(adminUrl, { waitUntil: "networkidle" });
+  await adminDesktop.screenshot({
+    path: path.join(screenshotDir, "admin-desktop-playwright.png"),
+    fullPage: false,
+  });
+
+  const adminMobile = await browser.newPage({
+    viewport: { width: 390, height: 900 },
+    isMobile: true,
+  });
+  await adminMobile.goto(adminUrl, { waitUntil: "networkidle" });
+  await adminMobile.screenshot({
+    path: path.join(screenshotDir, "admin-mobile-playwright.png"),
+    fullPage: false,
+  });
+
   const result = await mobile.evaluate(() => {
     const menu = document.querySelector("[data-menu-toggle]");
     const heroTitle = document.querySelector(".hero h1");
@@ -48,8 +66,6 @@ const url = "http://127.0.0.1:4173/index.html?qa=playwright";
     };
   });
 
-  await browser.close();
-
   if (!result.menuVisible) {
     throw new Error(`Mobile menu is not visible: ${JSON.stringify(result)}`);
   }
@@ -63,5 +79,30 @@ const url = "http://127.0.0.1:4173/index.html?qa=playwright";
     throw new Error(`Hero text is outside viewport: ${JSON.stringify(result)}`);
   }
 
-  console.log(`Visual QA passed: ${JSON.stringify(result)}`);
+  const adminResult = await adminMobile.evaluate(() => {
+    const body = document.body;
+    const doc = document.documentElement;
+    const firstMetric = document.querySelector(".admin-metric-card");
+    const metricRect = firstMetric ? firstMetric.getBoundingClientRect() : null;
+    return {
+      viewportWidth: window.innerWidth,
+      scrollWidth: Math.max(body.scrollWidth, doc.scrollWidth),
+      hasDashboard: !!document.querySelector("[data-trend]"),
+      metricRight: metricRect ? Math.round(metricRect.right) : null,
+    };
+  });
+
+  if (!adminResult.hasDashboard) {
+    throw new Error(`Admin dashboard did not render: ${JSON.stringify(adminResult)}`);
+  }
+  if (adminResult.scrollWidth > adminResult.viewportWidth + 2) {
+    throw new Error(`Admin mobile page overflows horizontally: ${JSON.stringify(adminResult)}`);
+  }
+  if (adminResult.metricRight > adminResult.viewportWidth + 2) {
+    throw new Error(`Admin metric is outside viewport: ${JSON.stringify(adminResult)}`);
+  }
+
+  await browser.close();
+
+  console.log(`Visual QA passed: ${JSON.stringify({ home: result, admin: adminResult })}`);
 })();

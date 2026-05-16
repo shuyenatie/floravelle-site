@@ -10,11 +10,16 @@ const requiredPages = [
   "custom-oem.html",
   "factory.html",
   "contact.html",
+  "admin.html",
+  "admin-inquiries.html",
+  "admin-catalog.html",
 ];
 
 const requiredAssets = [
   "assets/css/styles.css",
   "assets/js/site.js",
+  "assets/js/site-data.js",
+  "assets/js/admin.js",
   "assets/images/image-plan.md",
 ];
 
@@ -30,6 +35,9 @@ const requiredText = {
   "custom-oem.html": ["Custom Faux Floral Production", "Private Label", "Confirm Samples"],
   "factory.html": ["Our Factory", "Quality Control", "Export Packaging"],
   "contact.html": ["Wholesale Inquiry", "Request a Quote", "WhatsApp"],
+  "admin.html": ["Wholesale Dashboard", "Inquiry activity", "Replace before going real"],
+  "admin-inquiries.html": ["Inquiries", "Buyer requests", "Inquiry Detail"],
+  "admin-catalog.html": ["Catalog", "Wholesale structure", "Featured SKU model"],
 };
 
 function read(file) {
@@ -56,14 +64,30 @@ for (const [file, snippets] of Object.entries(requiredText)) {
 for (const file of requiredPages) {
   const html = read(file);
   assert(html.includes("assets/css/styles.css"), `${file} does not load shared CSS`);
-  assert(html.includes("assets/js/site.js"), `${file} does not load shared JS`);
-  assert(html.includes("Wholesale Inquiry"), `${file} missing inquiry navigation`);
+  assert(html.includes("assets/js/site-data.js"), `${file} does not load shared data`);
+  if (file.startsWith("admin")) {
+    assert(html.includes("assets/js/admin.js"), `${file} does not load admin JS`);
+  } else {
+    assert(html.includes("assets/js/site.js"), `${file} does not load shared JS`);
+    assert(html.includes("Wholesale Inquiry"), `${file} missing inquiry navigation`);
+  }
 }
 
 const allHtml = requiredPages.map(read).join("\n");
 const localLinks = [...allHtml.matchAll(/href="([^"]+\.html)"/g)].map((match) => match[1]);
 for (const href of localLinks) {
   assert(fs.existsSync(path.join(root, href)), `Broken local link target: ${href}`);
+}
+
+const allSource = [
+  ...requiredPages,
+  "assets/js/site.js",
+  "assets/js/site-data.js",
+  "assets/js/admin.js",
+].map(read).join("\n");
+
+for (const banned of ["sales@floravelle.example", "Add your number", "preview site does not send"]) {
+  assert(!allSource.includes(banned), `Legacy placeholder still present: ${banned}`);
 }
 
 console.log(`Site check passed: ${requiredPages.length} pages, ${requiredAssets.length} shared assets.`);
