@@ -1229,27 +1229,52 @@ hr {
 }
 
 .admin-trend {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  align-items: end;
-  gap: 12px;
-  height: 230px;
-  padding-top: 24px;
+  min-height: 260px;
+  padding-top: 6px;
 }
 
-.admin-trend span {
-  position: relative;
-  min-height: 18px;
-  background: linear-gradient(180deg, #879874, #394333);
+.admin-line-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-.admin-trend b {
-  position: absolute;
-  top: -24px;
-  left: 50%;
-  transform: translateX(-50%);
+.chart-grid-line {
+  stroke: rgba(32, 32, 29, 0.09);
+  stroke-width: 1;
+}
+
+.chart-area {
+  fill: url("#inquiryArea");
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--olive);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-point circle {
+  fill: var(--paper);
+  stroke: var(--olive);
+  stroke-width: 3;
+}
+
+.chart-point text {
+  fill: var(--charcoal);
+  font-size: 13px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.chart-point .chart-label {
   color: var(--muted);
+  fill: var(--muted);
   font-size: 12px;
+  font-weight: 700;
 }
 
 .admin-bars {

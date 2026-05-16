@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   var data = window.FloravelleData || {};
   var config = data.siteConfig || {};
   var products = data.products || [];
@@ -48,10 +48,52 @@
     var node = document.querySelector("[data-trend]");
     if (!node) return;
     var trend = dashboard.trend7 || [];
+    var labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    var width = 720;
+    var height = 260;
+    var padX = 38;
+    var padY = 34;
     var max = Math.max.apply(null, trend.concat([1]));
-    node.innerHTML = trend.map(function (value) {
-      return '<span style="height:' + Math.max(18, Math.round((value / max) * 100)) + '%"><b>' + value + '</b></span>';
+    var min = Math.min.apply(null, trend.concat([0]));
+    var range = Math.max(1, max - min);
+
+    function point(value, index) {
+      var x = padX + (index * (width - padX * 2)) / Math.max(1, trend.length - 1);
+      var y = height - padY - ((value - min) / range) * (height - padY * 2);
+      return { x: Math.round(x), y: Math.round(y), value: value, label: labels[index] || "" };
+    }
+
+    function smoothPath(points) {
+      if (!points.length) return "";
+      var d = "M " + points[0].x + " " + points[0].y;
+      for (var i = 1; i < points.length; i += 1) {
+        var prev = points[i - 1];
+        var current = points[i];
+        var midX = Math.round((prev.x + current.x) / 2);
+        d += " C " + midX + " " + prev.y + ", " + midX + " " + current.y + ", " + current.x + " " + current.y;
+      }
+      return d;
+    }
+
+    var points = trend.map(point);
+    var linePath = smoothPath(points);
+    var areaPath = linePath + " L " + points[points.length - 1].x + " " + (height - padY) + " L " + points[0].x + " " + (height - padY) + " Z";
+    var grid = [0.25, 0.5, 0.75].map(function (ratio) {
+      var y = Math.round(padY + ratio * (height - padY * 2));
+      return '<line class="chart-grid-line" x1="' + padX + '" y1="' + y + '" x2="' + (width - padX) + '" y2="' + y + '"></line>';
     }).join("");
+    var dots = points.map(function (p) {
+      return '<g class="chart-point"><circle cx="' + p.x + '" cy="' + p.y + '" r="5"></circle><text x="' + p.x + '" y="' + (p.y - 14) + '">' + p.value + '</text><text class="chart-label" x="' + p.x + '" y="' + (height - 9) + '">' + p.label + '</text></g>';
+    }).join("");
+
+    node.innerHTML =
+      '<svg class="admin-line-chart" viewBox="0 0 ' + width + " " + height + '" role="img" aria-label="Seven day inquiry curve">' +
+      '<defs><linearGradient id="inquiryArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a8b6f" stop-opacity="0.34"></stop><stop offset="100%" stop-color="#7a8b6f" stop-opacity="0.02"></stop></linearGradient></defs>' +
+      grid +
+      '<path class="chart-area" d="' + areaPath + '"></path>' +
+      '<path class="chart-line" d="' + linePath + '"></path>' +
+      dots +
+      '</svg>';
   }
 
   function renderDashboard() {
@@ -74,7 +116,7 @@
   function inquiryCard(item) {
     return (
       '<article class="admin-row" data-inquiry-id="' + item.id + '">' +
-      '<div><strong>' + item.customerName + '</strong><span>' + item.company + ' · ' + item.country + '</span></div>' +
+      '<div><strong>' + item.customerName + '</strong><span>' + item.company + ' - ' + item.country + '</span></div>' +
       '<div><strong>' + item.productCategory + '</strong><span>' + item.quantity + '</span></div>' +
       '<div><strong>' + item.inquiryType + '</strong><span>' + item.createdAt + '</span></div>' +
       '<div><span class="' + statusClass(item.status) + '">' + item.status + '</span></div>' +
@@ -117,7 +159,7 @@
       '<article class="admin-product-card">' +
       '<div class="admin-product-image" style="background-image:url(' + product.image + ')"></div>' +
       '<div><span class="admin-code">' + product.id + '</span><h3>' + product.name + '</h3>' +
-      '<p>' + product.category + ' · ' + product.useCase + '</p>' +
+      '<p>' + product.category + ' - ' + product.useCase + '</p>' +
       '<div class="admin-tags">' +
       (product.featured ? '<span>Featured</span>' : '') +
       (product.sampleFocus ? '<span>Sample focus</span>' : '') +
@@ -153,3 +195,4 @@
   renderInquiries();
   renderCatalog();
 })();
+
